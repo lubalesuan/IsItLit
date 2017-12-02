@@ -3,55 +3,23 @@ import random
 app = Flask(__name__)
 
 time_labels =['7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm']
+places_array = ['carlson_library', 'danforth_dining_hall', 'douglass_dining_hall',
+				'georgen_athletic_center', 'gleason_library', 'mail_services', 
+				'peets_coffee', 'q_and_a']
 
 @app.route('/')
 def hello_world():
-	return render_template('index.html',gym=True,mail=False)
+	return render_template('index.html',gym=True,mail=False, place_names = places_array)
 
-@app.route('/georgen_athletic_center')
-def gym():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("georgen_athletic_center.html",labels=time_labels,values=values)
+@app.route('/places/<string:name_place>')
+def place(name_place):
+	if name_place in places_array:
+		values = [random.randint(0,20) for x in range(len(time_labels))]
+		name_place = name_place.replace("_", " ")
+		return render_template("places.html", labels = time_labels, values = values, pn = name_place)
 
-@app.route('/mailing_services')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("mailing_services.html",labels=time_labels,values=values)
-
-@app.route('/douglass_dining_hall')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("douglass_dining_hall.html",labels=time_labels,values=values)
-
-@app.route('/danforth_dining_hall')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("danforth_dining_hall.html",labels=time_labels,values=values)
-
-@app.route('/hillside')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("hillside.html",labels=time_labels,values=values)
-
-@app.route('/peetes_coffee')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("peetes_coffee.html",labels=time_labels,values=values)
-
-@app.route('/gleason_library')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("gleason_library.html",labels=time_labels,values=values)
-
-@app.route('/q_and_a')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("q_and_a.html",labels=time_labels,values=values)
-
-@app.route('/carlson_library')
-def mail():
-	values = [random.randint(0,20) for x in range(len(time_labels))]
-	return render_template("carlson_library.html",labels=time_labels,values=values)
-
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
 if __name__ == "__main__":
 	app.run()
