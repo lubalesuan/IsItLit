@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>IsItBusy?</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/materialize.min.css') }}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+	<nav class="blue">
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">IS IT LIT? 🔥</a>
+			<!--<ul id="nav_mobile" class="right hide-on-med-and-down">
+				<li> <a href="#">Stuff</a></li>
+				<li> <a href="#">More stuff</a></li>
+				<li> <a href="#">Even more</a></li>
+			</ul> -->
+		</div>
+	</nav>
+
+	<div id="content" style="display:inline">
+
+		<div class="col s12 m7">
+		    <div class="card horizontal">
+		      <div class="card-image">
+			<a href="gym"><img src="{{ url_for('static',filename='img/gym.jpg') }}"></a>
+		      </div>
+		      <div class="card-stacked">
+			<div class="card-content" style={% if gym %} "background-color:red" {% else %} "background-color:green" {%endif%}>
+			  <p>This is the gym... You better know where that is because I don't</p>
+			  <p>Status: 
+				<b>
+			   	{% if gym %}
+				BUSY
+				{% else %}
+				NOT BUSY
+				{% endif %}
+				</b>	
+			  </p>
+			</div>
+			<div class="card-action">
+			  <a href="gym">GYM</a>
+			</div>
+		      </div>
+		    </div>
+		  </div>
+		
+		<div class="col s12 m7">
+		    <div class="card horizontal">
+		      <div class="card-image">
+			<a href="mail"><img src="{{ url_for('static',filename='img/mail.jpg') }}"></a>
+		      </div>
+		      <div class="card-stacked">
+			<div class="card-content" style={% if mail %} "background-color:red" {% else %} "background-color:green" {%endif%}>
+			  <p>Idk where this is either but it seems pretty important</p>
+			  <p>Status: 
+				<b>
+			   	{% if mail %}
+				BUSY
+				{% else %}
+				NOT BUSY
+				{% endif %}
+				</b>	
+    			  </p>
+			</div>
+			<div class="card-action">
+			  <a href="mail">MAIL CENTER</a>
+			</div>
+		      </div>
+		    </div>
+		  </div>
+
+	</div>
+</body>
+</html>
